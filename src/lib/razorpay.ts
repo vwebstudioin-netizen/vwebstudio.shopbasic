@@ -1,10 +1,19 @@
 import Razorpay from "razorpay";
 
-// Server-side only — use in API routes
-export const razorpay = new Razorpay({
-  key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
+// Server-side only — lazy init to avoid build-time errors when env vars are not set
+let _razorpay: Razorpay | null = null;
+
+export function getRazorpay(): Razorpay {
+  if (!_razorpay) {
+    const key_id = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+    const key_secret = process.env.RAZORPAY_KEY_SECRET;
+    if (!key_id || !key_secret) {
+      throw new Error("Razorpay key_id and key_secret must be set in environment variables");
+    }
+    _razorpay = new Razorpay({ key_id, key_secret });
+  }
+  return _razorpay;
+}
 
 // Helper to load Razorpay checkout script on client
 export function loadRazorpayScript(): Promise<boolean> {
