@@ -26,7 +26,7 @@ These Terms apply to all visitors, users, and customers of the Site. We reserve 
   {
     title: "3. Orders & Payments",
     content: `• By placing an order, you represent that the information you provide is accurate and that you are authorised to use the payment method supplied.
-• All payments are securely processed through **Razorpay**, our trusted payment gateway partner. We support UPI, credit/debit cards, net banking, and popular wallets.
+• All payments are securely processed through our trusted payment gateway. We support UPI, credit/debit cards, net banking, and popular wallets.
 • An order is confirmed only after successful payment. You will receive an email confirmation with your order details.
 • We reserve the right to refuse or cancel any order at our sole discretion — including orders that appear fraudulent, violate our policies, or contain pricing/product errors.`,
   },

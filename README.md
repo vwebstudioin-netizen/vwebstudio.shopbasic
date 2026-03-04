@@ -1,6 +1,6 @@
 # Retail Store — Basic Tier
 
-A modern, fluid, and eye-catching retail store template built with **Next.js 14**, **Firebase**, **Razorpay**, and **Tailwind CSS**. Designed for **$0/month deployment** on Vercel Hobby + Firebase Spark free tier.
+A modern, fluid, and eye-catching retail store template built with **Next.js 14**, **Firebase**, and **Tailwind CSS**. Designed for **$0/month deployment** on Vercel Hobby + Firebase Spark free tier.
 
 ## 🚀 Tech Stack
 
@@ -11,7 +11,6 @@ A modern, fluid, and eye-catching retail store template built with **Next.js 14*
 | Database | Firebase Firestore | Spark (Free) |
 | Auth | Firebase Auth | Spark (Free) |
 | Storage | Firebase Storage | Spark (5GB) |
-| Payments | Razorpay Checkout | Pay per txn |
 | State | Zustand (cart) | — |
 | Hosting | Vercel | Hobby (Free) |
 
@@ -29,7 +28,7 @@ src/
 │   │   └── [slug]/page.tsx  # Product detail
 │   ├── cart/page.tsx        # Shopping cart
 │   ├── checkout/
-│   │   ├── page.tsx         # Checkout with Razorpay
+│   │   ├── page.tsx         # Checkout page
 │   │   └── success/page.tsx # Order confirmation
 │   ├── about/page.tsx       # About us
 │   ├── contact/page.tsx     # Contact form
@@ -41,9 +40,6 @@ src/
 │   │   ├── products/page.tsx # Product management
 │   │   └── orders/page.tsx  # Order management
 │   └── api/
-│       ├── order/route.ts   # Create Razorpay order
-│       ├── verify/route.ts  # Verify payment signature
-│       ├── webhook/route.ts # Razorpay webhooks
 │       └── contact/route.ts # Contact form handler
 ├── components/
 │   ├── ui/          # Button, Input, Badge, Skeleton
@@ -53,7 +49,6 @@ src/
 ├── lib/
 │   ├── firebase.ts       # Client SDK
 │   ├── firebase-admin.ts # Admin SDK
-│   ├── razorpay.ts       # Server + client helpers
 │   ├── products.ts       # Firestore product queries
 │   ├── demo-data.ts      # Sample products for dev
 │   ├── utils.ts          # cn(), formatPrice(), etc.
@@ -76,7 +71,7 @@ npm install
 # 2. Copy environment variables
 cp .env.local.example .env.local
 
-# 3. Fill in your Firebase & Razorpay credentials in .env.local
+# 3. Fill in your Firebase credentials in .env.local
 
 # 4. Run development server
 npm run dev
@@ -89,9 +84,6 @@ Open [http://localhost:3000](http://localhost:3000).
 See `.env.local.example` for all required variables:
 - `NEXT_PUBLIC_FIREBASE_*` — Firebase client config
 - `FIREBASE_SERVICE_ACCOUNT_KEY` — Firebase Admin (JSON string)
-- `NEXT_PUBLIC_RAZORPAY_KEY_ID` — Razorpay public key
-- `RAZORPAY_KEY_SECRET` — Razorpay secret
-- `RAZORPAY_WEBHOOK_SECRET` — Webhook verification
 
 ## 💰 Cost Breakdown
 
@@ -99,8 +91,7 @@ See `.env.local.example` for all required variables:
 |---------|-----------------|-------------|
 | Vercel Hobby | 100GB bandwidth | $0 |
 | Firebase Spark | 1GiB storage, 50K reads/day | $0 |
-| Razorpay | No monthly fee | 2% per domestic txn |
-| **Total** | | **$0/month + payment fees** |
+| **Total** | | **$0/month** |
 
 ## 🎨 Design Features
 

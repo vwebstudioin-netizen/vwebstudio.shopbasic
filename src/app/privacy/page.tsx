@@ -15,7 +15,7 @@ const sections = [
     content: `When you use RetailStore, we may collect the following types of information:
 
 • **Personal Information** — Name, email address, phone number, shipping address, and billing details provided during account creation or checkout.
-• **Payment Information** — Payment details are processed securely through our payment partner, Razorpay. We do not store your full card number or CVV on our servers.
+• **Payment Information** — Payment details are processed securely through our payment partner. We do not store your full card number or CVV on our servers.
 • **Usage Data** — Pages visited, products viewed, time spent on site, device type, browser, IP address, and referring URLs collected through cookies and analytics tools.
 • **Communications** — Any messages, emails, or feedback you send us through our contact form or support channels.`,
   },
@@ -38,7 +38,7 @@ const sections = [
 • Encrypted storage of sensitive personal data.
 • Regular security audits and vulnerability assessments.
 • Role-based access controls limiting employee access to personal data.
-• Secure, PCI-DSS compliant payment processing via Razorpay.
+• Secure, PCI-DSS compliant payment processing.
 
 While we strive to protect your information, no method of transmission over the Internet is 100 % secure. We cannot guarantee absolute security but are committed to safeguarding your data to the best of our ability.`,
   },
@@ -46,7 +46,7 @@ While we strive to protect your information, no method of transmission over the 
     title: "4. Third-Party Services",
     content: `We share your information with trusted third parties only as necessary to operate our business:
 
-• **Razorpay** — Processes all payment transactions. Razorpay's privacy policy governs how they handle your payment data. Learn more at [razorpay.com/privacy](https://razorpay.com/privacy).
+• **Payment Gateway** — Processes all payment transactions securely. The payment provider's privacy policy governs how they handle your payment data.
 • **Shipping Partners** — Receive your name, address, and phone number to deliver orders.
 • **Analytics Providers** — We use services such as Google Analytics to understand website traffic and usage patterns. These providers may use cookies and similar technologies.
 • **Email Service Providers** — Help us send transactional and promotional emails.

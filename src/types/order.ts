@@ -29,8 +29,7 @@ export interface Order {
   subtotal: number;
   tax: number;
   total: number;
-  razorpayPaymentId: string;
-  razorpayOrderId: string;
+  paymentMethod: "cod" | "online";
   status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
   createdAt: Date;
 }

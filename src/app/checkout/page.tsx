@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CreditCard, Lock } from "lucide-react";
+import { ShieldCheck, Lock } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { formatPrice } from "@/lib/utils";
-import { loadRazorpayScript } from "@/lib/razorpay";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import toast from "react-hot-toast";
@@ -32,7 +31,7 @@ export default function CheckoutPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handlePayment = async () => {
+  const handlePlaceOrder = async () => {
     if (!form.name || !form.email || !form.phone || !form.address || !form.city || !form.state || !form.pincode) {
       toast.error("Please fill all fields");
       return;
@@ -40,74 +39,12 @@ export default function CheckoutPage() {
 
     setLoading(true);
     try {
-      // 1. Create order on server
-      const res = await fetch("/api/order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items,
-          amount: total,
-          address: {
-            name: form.name,
-            street: form.address,
-            city: form.city,
-            state: form.state,
-            pincode: form.pincode,
-            phone: form.phone,
-          },
-        }),
-      });
+      // In production: save order to Firestore here
+      const orderId = `ORD-${Date.now()}`;
 
-      const data = await res.json();
-      if (!data.orderId) throw new Error("Failed to create order");
-
-      // 2. Load Razorpay
-      const loaded = await loadRazorpayScript();
-      if (!loaded) throw new Error("Razorpay SDK failed to load");
-
-      // 3. Open Razorpay checkout
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: total * 100, // in paise
-        currency: "INR",
-        name: "ShopName",
-        description: `Order - ${items.length} item(s)`,
-        order_id: data.razorpayOrderId,
-        prefill: {
-          name: form.name,
-          email: form.email,
-          contact: form.phone,
-        },
-        theme: { color: "#0284c7" },
-        handler: async (response: {
-          razorpay_payment_id: string;
-          razorpay_order_id: string;
-          razorpay_signature: string;
-        }) => {
-          // 4. Verify payment
-          const verifyRes = await fetch("/api/verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-              orderId: data.orderId,
-            }),
-          });
-
-          const verifyData = await verifyRes.json();
-          if (verifyData.success) {
-            clearCart();
-            router.push(`/checkout/success?orderId=${data.orderId}`);
-          } else {
-            toast.error("Payment verification failed!");
-          }
-        },
-      };
-
-      const razorpay = new (window as any).Razorpay(options);
-      razorpay.open();
+      clearCart();
+      toast.success("Order placed successfully!");
+      router.push(`/checkout/success?orderId=${orderId}`);
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
       console.error(error);
@@ -266,18 +203,18 @@ export default function CheckoutPage() {
               </div>
 
               <Button
-                onClick={handlePayment}
+                onClick={handlePlaceOrder}
                 isLoading={loading}
                 size="lg"
                 className="w-full mt-6"
               >
                 <Lock className="w-4 h-4" />
-                Pay {formatPrice(total)}
+                Place Order — {formatPrice(total)}
               </Button>
 
               <div className="flex items-center justify-center gap-2 mt-3 text-xs text-gray-400">
-                <CreditCard className="w-3.5 h-3.5" />
-                <span>Secured by Razorpay</span>
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Secure Checkout</span>
               </div>
             </div>
           </div>

@@ -35,7 +35,7 @@ const reasons = [
     icon: ShieldCheck,
     title: "Secure Payments",
     description:
-      "Shop with confidence using Razorpay-powered checkout. Your financial information is encrypted and never stored on our servers.",
+      "Shop with confidence using our secure checkout. Your financial information is encrypted and never stored on our servers.",
   },
   {
     icon: BadgePercent,
